@@ -1,0 +1,519 @@
+/* تصميم قائمة الجمل */
+.sentence-list-container {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  margin-bottom: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.sentence-list-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
+  border-radius: 16px 16px 0 0;
+}
+
+.sentence-list-header {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.sentence-list-header h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #2d3436;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.sentence-list-header h3::before {
+  content: '📚';
+  font-size: 1.2rem;
+}
+
+.sentence-list-header p {
+  color: #636e72;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+/* أدوات البحث والفلترة */
+.search-filter-section {
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  border: 1px solid #e9ecef;
+}
+
+.search-filter-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+  .search-filter-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.search-input-wrapper,
+.filter-wrapper {
+  position: relative;
+}
+
+.search-input,
+.filter-select {
+  width: 100%;
+  padding: 0.875rem 1rem;
+  border: 2px solid #e1e8ed;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: inherit;
+  background: white;
+  transition: all 0.3s ease;
+  outline: none;
+  direction: rtl;
+  text-align: right;
+}
+
+.search-input:focus,
+.filter-select:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  transform: translateY(-1px);
+}
+
+.search-input::placeholder {
+  color: #b2bec3;
+}
+
+.search-icon,
+.filter-icon {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #b2bec3;
+  font-size: 1.1rem;
+  pointer-events: none;
+}
+
+.search-icon::before {
+  content: '🔍';
+}
+
+.filter-icon::before {
+  content: '👥';
+}
+
+/* إحصائيات النتائج */
+.results-stats {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: white;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+  margin-bottom: 1.5rem;
+}
+
+.results-count {
+  font-weight: 600;
+  color: #2d3436;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.results-count::before {
+  content: '📊';
+}
+
+.no-results {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: #636e72;
+}
+
+.no-results::before {
+  content: '🔍';
+  font-size: 3rem;
+  display: block;
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}
+
+/* قائمة الجمل */
+.sentences-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.sentence-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e9ecef;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.sentence-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(180deg, #667eea, #764ba2);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.sentence-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.sentence-card:hover::before {
+  opacity: 1;
+}
+
+.sentence-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+  .sentence-content {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+}
+
+.language-section {
+  padding: 1rem;
+  border-radius: 8px;
+  position: relative;
+}
+
+.language-section.hassani {
+  background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+  border: 1px solid #90caf9;
+}
+
+.language-section.arabic {
+  background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+  border: 1px solid #a5d6a7;
+}
+
+.language-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #424242;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.language-label.hassani::before {
+  content: '🏜️';
+}
+
+.language-label.arabic::before {
+  content: '🕌';
+}
+
+.language-text {
+  font-size: 1.1rem;
+  line-height: 1.5;
+  color: #2d3436;
+  font-weight: 500;
+  word-break: break-word;
+}
+
+.author-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+  min-width: 120px;
+}
+
+.author-label {
+  font-size: 0.75rem;
+  color: #636e72;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.25rem;
+}
+
+.author-name {
+  font-weight: 600;
+  color: #667eea;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+/* نموذج التعديل */
+.edit-form {
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.edit-inputs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+  .edit-inputs {
+    grid-template-columns: 1fr;
+  }
+}
+
+.edit-input {
+  padding: 0.75rem;
+  border: 2px solid #e1e8ed;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-family: inherit;
+  background: white;
+  transition: all 0.3s ease;
+  outline: none;
+  direction: rtl;
+  text-align: right;
+}
+
+.edit-input:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+/* أزرار الإجراءات */
+.actions-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.action-btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  text-decoration: none;
+}
+
+.action-btn.edit {
+  background: #ffc107;
+  color: #212529;
+}
+
+.action-btn.edit:hover {
+  background: #e0a800;
+  transform: translateY(-1px);
+}
+
+.action-btn.delete {
+  background: #dc3545;
+  color: white;
+}
+
+.action-btn.delete:hover {
+  background: #c82333;
+  transform: translateY(-1px);
+}
+
+.action-btn.save {
+  background: #28a745;
+  color: white;
+}
+
+.action-btn.save:hover {
+  background: #218838;
+  transform: translateY(-1px);
+}
+
+.action-btn.cancel {
+  background: #6c757d;
+  color: white;
+}
+
+.action-btn.cancel:hover {
+  background: #5a6268;
+  transform: translateY(-1px);
+}
+
+/* حالة التحميل */
+.loading-state {
+  text-align: center;
+  padding: 2rem;
+  color: #667eea;
+}
+
+.loading-state::before {
+  content: '';
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #667eea;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-left: 10px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* تاريخ الإضافة */
+.date-info {
+  font-size: 0.8rem;
+  color: #636e72;
+  margin-top: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.date-info::before {
+  content: '📅';
+}
+
+/* تصميم متجاوب */
+@media (max-width: 768px) {
+  .sentence-list-container {
+    padding: 1.5rem;
+    border-radius: 12px;
+  }
+  
+  .search-filter-section {
+    padding: 1rem;
+  }
+  
+  .sentence-card {
+    padding: 1rem;
+  }
+  
+  .sentence-content {
+    gap: 0.75rem;
+  }
+  
+  .language-section {
+    padding: 0.75rem;
+  }
+  
+  .actions-section {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .action-btn {
+    justify-content: center;
+    padding: 0.75rem 1rem;
+  }
+}
+
+/* تأثيرات اللمس للأجهزة اللوحية */
+@media (hover: none) and (pointer: coarse) {
+  .sentence-card:hover {
+    transform: none;
+  }
+  
+  .action-btn:hover {
+    transform: none;
+  }
+  
+  .search-input:focus,
+  .filter-select:focus,
+  .edit-input:focus {
+    transform: none;
+  }
+}
+
+/* دعم الوضع المظلم (اختياري) */
+@media (prefers-color-scheme: dark) {
+  .sentence-list-container,
+  .search-filter-section,
+  .sentence-card,
+  .results-stats {
+    background: #2d3748;
+    color: #e1e8ed;
+    border-color: #4a5568;
+  }
+  
+  .search-input,
+  .filter-select,
+  .edit-input {
+    background: #1a202c;
+    border-color: #4a5568;
+    color: #e1e8ed;
+  }
+  
+  .author-section {
+    background: #1a202c;
+  }
+}
+
+/* تأثيرات الطباعة */
+@media print {
+  .sentence-list-container {
+    box-shadow: none !important;
+    border: 1px solid #ccc !important;
+  }
+  
+  .action-btn {
+    display: none !important;
+  }
+  
+  .search-filter-section {
+    display: none !important;
+  }
+}

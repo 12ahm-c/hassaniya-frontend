@@ -1,0 +1,510 @@
+/* تصميم نموذج إضافة الجمل */
+.add-sentence-container {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  margin-bottom: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.add-sentence-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
+  border-radius: 16px 16px 0 0;
+}
+
+.add-sentence-header {
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.add-sentence-header h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #2d3436;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.add-sentence-header h3::before {
+  content: '📝';
+  font-size: 1.2rem;
+}
+
+.add-sentence-header p {
+  color: #636e72;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.add-sentence-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+@media (max-width: 768px) {
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+.form-group {
+  position: relative;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #2d3436;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.form-group label::before {
+  content: '';
+  width: 4px;
+  height: 4px;
+  background: #667eea;
+  border-radius: 50%;
+}
+
+.sentence-input {
+  width: 100%;
+  padding: 1rem 1.2rem;
+  border: 2px solid #e1e8ed;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-family: inherit;
+  background: #ffffff;
+  transition: all 0.3s ease;
+  outline: none;
+  direction: rtl;
+  text-align: right;
+  resize: vertical;
+  min-height: 48px;
+}
+
+.sentence-input:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  transform: translateY(-1px);
+}
+
+.sentence-input::placeholder {
+  color: #b2bec3;
+  opacity: 1;
+}
+
+.sentence-input.hassani {
+  border-color: #e3f2fd;
+}
+
+.sentence-input.hassani:focus {
+  border-color: #2196f3;
+  box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
+}
+
+.sentence-input.arabic {
+  border-color: #e8f5e9;
+}
+
+.sentence-input.arabic:focus {
+  border-color: #4caf50;
+  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+}
+
+/* أيقونات الحقول */
+.field-icon {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #b2bec3;
+  font-size: 1.2rem;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.field-icon.hassani::before {
+  content: '🏜️';
+}
+
+.field-icon.arabic::before {
+  content: '🕌';
+}
+
+/* زر الإضافة */
+.add-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.add-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.add-btn:hover::before {
+  left: 100%;
+}
+
+.add-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
+}
+
+.add-btn:active {
+  transform: translateY(0);
+}
+
+.add-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.add-btn .spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* رسائل الحالة */
+.message {
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  margin-top: 1rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  animation: slideIn 0.3s ease;
+}
+
+.message.success {
+  background: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.message.success::before {
+  content: '✅';
+}
+
+.message.error {
+  background: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+.message.error::before {
+  content: '❌';
+}
+
+.message.warning {
+  background: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffeaa7;
+}
+
+.message.warning::before {
+  content: '⚠️';
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* نافذة التأكيد المخصصة */
+.duplicate-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  padding: 2rem;
+  max-width: 500px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.modal-header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.modal-header h4 {
+  color: #f39c12;
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.modal-body {
+  margin-bottom: 2rem;
+}
+
+.duplicate-list {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid #e9ecef;
+}
+
+.duplicate-item {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.duplicate-item:last-child {
+  border-bottom: none;
+}
+
+.duplicate-item strong {
+  color: #667eea;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.modal-btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+}
+
+.modal-btn.confirm {
+  background: #28a745;
+  color: white;
+}
+
+.modal-btn.confirm:hover {
+  background: #218838;
+  transform: translateY(-1px);
+}
+
+.modal-btn.cancel {
+  background: #6c757d;
+  color: white;
+}
+
+.modal-btn.cancel:hover {
+  background: #5a6268;
+  transform: translateY(-1px);
+}
+
+/* حالة التحميل */
+.loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #667eea;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+/* إحصائيات سريعة */
+.quick-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e1e8ed;
+}
+
+.stat-item {
+  text-align: center;
+  padding: 0.75rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+}
+
+.stat-number {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #667eea;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.stat-label {
+  font-size: 0.8rem;
+  color: #636e72;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* تصميم متجاوب */
+@media (max-width: 768px) {
+  .add-sentence-container {
+    padding: 1.5rem;
+    border-radius: 12px;
+  }
+  
+  .add-sentence-header h3 {
+    font-size: 1.25rem;
+  }
+  
+  .sentence-input {
+    padding: 0.875rem 1rem;
+  }
+  
+  .add-btn {
+    padding: 0.875rem 1.5rem;
+    font-size: 1rem;
+  }
+  
+  .modal-content {
+    padding: 1.5rem;
+    margin: 1rem;
+  }
+  
+  .modal-actions {
+    flex-direction: column;
+  }
+  
+  .modal-btn {
+    width: 100%;
+  }
+}
+
+/* تأثيرات اللمس للأجهزة اللوحية */
+@media (hover: none) and (pointer: coarse) {
+  .add-btn:hover,
+  .modal-btn:hover {
+    transform: none;
+  }
+  
+  .sentence-input:focus {
+    transform: none;
+  }
+}
+
+/* دعم الوضع المظلم (اختياري) */
+@media (prefers-color-scheme: dark) {
+  .add-sentence-container {
+    background: #2d3748;
+    color: #e1e8ed;
+  }
+  
+  .sentence-input {
+    background: #1a202c;
+    border-color: #4a5568;
+    color: #e1e8ed;
+  }
+  
+  .message.success {
+    background: #2f855a;
+    color: white;
+  }
+  
+  .message.error {
+    background: #c53030;
+    color: white;
+  }
+}
